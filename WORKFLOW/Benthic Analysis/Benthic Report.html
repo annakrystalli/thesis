@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Benthic Report.R</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<!-- Automatically generated by RStudio [12861c30b10411e1afa60800200c9a66] -->
+
+<h3>Benthic Report.R</h3>
+
+<p>annakrystalli &mdash; <em>Feb 6, 2014, 5:46 PM</em></p>
+
+<pre><code class="r">source(&quot;analyseTrees.R&quot;)
+</code></pre>
+
+<pre><code>Loading required package: vegan Loading required package: permute Loading
+required package: lattice This is vegan 2.0-9 Loading required package:
+cluster Loading required package: ade4
+
+Attaching package: &#39;ade4&#39;
+
+The following object is masked from &#39;package:vegan&#39;:
+
+cca
+
+The following object is masked from &#39;package:base&#39;:
+
+within
+</code></pre>
+
+<pre><code class="r">
+setwd(&quot;/Users/annakrystalli/Documents/WORKFLOW/Benthic Analysis/&quot;)
+
+load(file=&quot;FD analysis table_all.RData&quot;)
+load(file=&quot;TD analysis table_all.RData&quot;)
+load(file=&quot;trait.order.RData&quot;)
+
+#Order columns in FD.table
+FD.tab&lt;-cbind(FD.table[,1:5], FD.table[,trait.select])
+
+#Make a vector of the number of complete cases for each modality (each trait can have a number of modalities)
+compl&lt;-NULL
+for(i in 1:(length(FD.tab)-5)){
+  compl&lt;-c(compl,sum(complete.cases(FD.tab[6:(length(FD.tab)-i+1)])))}
+compl&lt;-rev(compl)
+
+taxa&lt;-taxo.table
+taxa&lt;-cbind(Species=rownames(taxa), taxa)
+taxa.dist &lt;- taxa2dist(taxa, varstep = F, check=F)
+
+int.td&lt;-NULL
+int.sd&lt;-NULL
+TAXA&lt;-vector(&quot;list&quot;, length(unique(compl)))
+TAXA.int&lt;-vector(&quot;list&quot;, length(unique(compl))-1)
+SPP&lt;-vector(&quot;list&quot;, length(unique(compl)))
+SPP.int&lt;-vector(&quot;list&quot;, length(unique(compl))-1)
+
+for(i in 1:length(unique(compl))){
+  SPP[[i]]&lt;-FD.tab$AphiaID_acc[complete.cases(FD.tab[,which(compl %in% unique(compl)[1:i])+5])]}
+
+for(i in 1:(length(unique(compl)))){
+
+  if(i==length(unique(compl))){}else{
+    SPP.int[[i]]&lt;-setdiff(SPP[[i]] ,SPP[[i+1]])   
+    clust.mat &lt;- matrix(0, ncol = nrow(taxa))
+    colnames(clust.mat) &lt;- rownames(taxa)
+    clust.mat[,which(rownames(taxa) %in% SPP.int[[i]])]&lt;-1
+    int.td&lt;-c(int.td, taxondive(comm = clust.mat, dis = taxa.dist)$Dplus)
+    int.sd&lt;-c(int.sd, taxondive(comm = clust.mat, dis = taxa.dist)$sd.Dplus)
+    TAXA.int[[i]]&lt;-taxa[rownames(taxa) %in% SPP.int[[i]],][order(taxa[rownames(taxa) %in% SPP.int[[i]],]$Phylum),]}
+  TAXA[[i]]&lt;-taxa[rownames(taxa) %in% SPP[[i]],][order(taxa[rownames(taxa) %in% SPP[[i]],]$Phylum),]                                      
+}                                  
+n.spp&lt;-unique(compl)     
+save(n.spp, SPP, SPP.int, TAXA, TAXA.int, int.td, int.sd, file=&quot;report data.RData&quot;)
+
+print(int.td)
+</code></pre>
+
+<pre><code> [1] 82.58 88.10 87.30 88.78 93.96 95.19 95.20 93.97 84.55   NaN 94.99
+</code></pre>
+
+<pre><code class="r">
+plot(int.td , n.spp[-1], ylim=range(n.spp), type=&quot;b&quot;, pch=21, bg=&quot;black&quot;,
+     ylab=&quot;no. spp included&quot;, xlab=&quot;TD spp added&quot;)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r">
+
+print(TAXA.int)
+</code></pre>
+
+<pre><code>[[1]]
+       Species       Genus       Family             Order        Class
+107726  107726   Calocaris      Axiidae          Decapoda Malacostraca
+107381  107381    Carcinus   Portunidae          Decapoda Malacostraca
+107552  107552     Crangon  Crangonidae          Decapoda Malacostraca
+107346  107346  Macropodia    Inachidae          Decapoda Malacostraca
+102831  102831    Maerella     Maeridae         Amphipoda Malacostraca
+107703  107703   Palinurus  Palinuridae          Decapoda Malacostraca
+107682  107682    Processa  Processidae          Decapoda Malacostraca
+125064  125064 Amphipholis  Amphiuridae         Ophiurida  Ophiuroidea
+140262  140262   Littorina Littorinidae   Littorinimorpha   Gastropoda
+140684  140684     Patella   Patellidae Patellogastropoda   Gastropoda
+140685  140685     Patella   Patellidae Patellogastropoda   Gastropoda
+141662  141662    Thyasira  Thyasiridae         Lucinoida     Bivalvia
+              Phylum
+107726    Arthropoda
+107381    Arthropoda
+107552    Arthropoda
+107346    Arthropoda
+102831    Arthropoda
+107703    Arthropoda
+107682    Arthropoda
+125064 Echinodermata
+140262      Mollusca
+140684      Mollusca
+140685      Mollusca
+141662      Mollusca
+
+[[2]]
+       Species      Genus       Family        Order      Class    Phylum
+130362  130362    Nephtys   Nephtyidae Phyllodocida Polychaeta  Annelida
+129898  129898 Notomastus Capitellidae  Capitellida Polychaeta  Annelida
+129775  129775  Ampharete Ampharetidae  Terebellida Polychaeta  Annelida
+141435  141435       Abra    Semelidae    Veneroida   Bivalvia  Mollusca
+141439  141439       Abra    Semelidae    Veneroida   Bivalvia  Mollusca
+140472  140472   Musculus    Mytilidae    Mytiloida   Bivalvia  Mollusca
+128549  128549   Phoronis    Phoronida    Phoronida  Phoronida Phoronida
+
+[[3]]
+       Species         Genus        Family          Order        Class
+131107  131107       Aonides     Spionidae       Spionida   Polychaeta
+130631  130631       Eulalia Phyllodocidae   Phyllodocida   Polychaeta
+131290  131290      Eusyllis      Syllidae   Phyllodocida   Polychaeta
+130649  130649     Hesionura Phyllodocidae   Phyllodocida   Polychaeta
+130707  130707       Pisione  Sigalionidae   Phyllodocida   Polychaeta
+131379  131379 Sphaerosyllis      Syllidae   Phyllodocida   Polychaeta
+107323  107323          Hyas   Oregoniidae       Decapoda Malacostraca
+239867  239867    Pycnogonum  Pycnogonidae      Pantopoda  Pycnogonida
+103166  103166     Stenothoe  Stenothoidae      Amphipoda Malacostraca
+103228  103228       Urothoe    Urothoidae      Amphipoda Malacostraca
+141541  141541      Azorinus  Solecurtidae      Veneroida     Bivalvia
+140300  140300       Spisula     Mactridae      Veneroida     Bivalvia
+140302  140302       Spisula     Mactridae      Veneroida     Bivalvia
+141651  141651       Thracia    Thraciidae Anomalodesmata     Bivalvia
+141929  141929      Timoclea     Veneridae      Veneroida     Bivalvia
+           Phylum
+131107   Annelida
+130631   Annelida
+131290   Annelida
+130649   Annelida
+130707   Annelida
+131379   Annelida
+107323 Arthropoda
+239867 Arthropoda
+103166 Arthropoda
+103228 Arthropoda
+141541   Mollusca
+140300   Mollusca
+140302   Mollusca
+141651   Mollusca
+141929   Mollusca
+
+[[4]]
+       Species          Genus             Family           Order
+129914  129914   Chaetopterus     Chaetopteridae        Spionida
+130616  130616         Eteone      Phyllodocidae    Phyllodocida
+130116  130116        Glycera         Glyceridae    Phyllodocida
+130123  130123        Glycera         Glyceridae    Phyllodocida
+130140  130140        Goniada         Goniadidae    Phyllodocida
+130464  130464    Hyalinoecia          Onuphidae        Eunicida
+130072  130072       Marphysa          Eunicidae        Eunicida
+130355  130355        Nephtys         Nephtyidae    Phyllodocida
+130491  130491        Ophelia         Opheliidae       Opheliida
+130980  130980    Scalibregma   Scalibregmatidae       Opheliida
+152250  152250         Eteone      Phyllodocidae    Phyllodocida
+130364  130364        Nephtys         Nephtyidae    Phyllodocida
+131171  131171     Scolelepis          Spionidae        Spionida
+101896  101896      Ampelisca       Ampeliscidae       Amphipoda
+101930  101930      Ampelisca       Ampeliscidae       Amphipoda
+134723  134723 Anoplodactylus   Phoxichilidiidae       Pantopoda
+103060  103060    Bathyporeia     Bathyporeiidae       Amphipoda
+110472  110472      Diastylis        Diastylidae         Cumacea
+110462  110462        Iphinoe        Bodotriidae         Cumacea
+107390  107390    Liocarcinus         Polybiidae        Decapoda
+534781  534781          Maera           Maeridae       Amphipoda
+102383  102383         Photis           Photidae       Amphipoda
+102916  102916    Pontocrates      Oedicerotidae       Amphipoda
+107739  107739       Upogebia        Upogebiidae        Decapoda
+103226  103226        Urothoe         Urothoidae       Amphipoda
+103235  103235        Urothoe         Urothoidae       Amphipoda
+102057  102057        Unciola         Unciolidae       Amphipoda
+110445  110445       Bodotria        Bodotriidae         Cumacea
+397383  397383      Corophium        Corophiidae       Amphipoda
+102788  102788   Abludomelita          Melitidae       Amphipoda
+120020  120020   Gastrosaccus            Mysidae          Mysida
+104906  104906  Branchiostoma Branchiostomatidae     Leptocardii
+100991  100991       Sagartia        Sagartiidae      Actiniaria
+124670  124670         Thyone     Phyllophoridae Dendrochirotida
+141436  141436           Abra          Semelidae       Veneroida
+138992  138992  Acanthocardia          Cardiidae       Veneroida
+141907  141907       Chamelea          Veneridae       Veneroida
+140103  140103       Hiatella        Hiatellidae   Euheterodonta
+139004  139004   Laevicardium          Cardiidae       Veneroida
+140283  140283       Lucinoma          Lucinidae       Lucinoida
+140299  140299         Mactra          Mactridae       Veneroida
+140737  140737         Phaxas           Pharidae   Euheterodonta
+139488  139488     Scaphander      Scaphandridae   Cephalaspidea
+139604  139604          Donax          Donacidae       Veneroida
+               Class        Phylum
+129914    Polychaeta      Annelida
+130616    Polychaeta      Annelida
+130116    Polychaeta      Annelida
+130123    Polychaeta      Annelida
+130140    Polychaeta      Annelida
+130464    Polychaeta      Annelida
+130072    Polychaeta      Annelida
+130355    Polychaeta      Annelida
+130491    Polychaeta      Annelida
+130980    Polychaeta      Annelida
+152250    Polychaeta      Annelida
+130364    Polychaeta      Annelida
+131171    Polychaeta      Annelida
+101896  Malacostraca    Arthropoda
+101930  Malacostraca    Arthropoda
+134723   Pycnogonida    Arthropoda
+103060  Malacostraca    Arthropoda
+110472  Malacostraca    Arthropoda
+110462  Malacostraca    Arthropoda
+107390  Malacostraca    Arthropoda
+534781  Malacostraca    Arthropoda
+102383  Malacostraca    Arthropoda
+102916  Malacostraca    Arthropoda
+107739  Malacostraca    Arthropoda
+103226  Malacostraca    Arthropoda
+103235  Malacostraca    Arthropoda
+102057  Malacostraca    Arthropoda
+110445  Malacostraca    Arthropoda
+397383  Malacostraca    Arthropoda
+102788  Malacostraca    Arthropoda
+120020  Malacostraca    Arthropoda
+104906   Leptocardii      Chordata
+100991      Anthozoa      Cnidaria
+124670 Holothuroidea Echinodermata
+141436      Bivalvia      Mollusca
+138992      Bivalvia      Mollusca
+141907      Bivalvia      Mollusca
+140103      Bivalvia      Mollusca
+139004      Bivalvia      Mollusca
+140283      Bivalvia      Mollusca
+140299      Bivalvia      Mollusca
+140737      Bivalvia      Mollusca
+139488    Gastropoda      Mollusca
+139604      Bivalvia      Mollusca
+
+[[5]]
+       Species        Genus         Family           Order        Class
+129777  129777    Ampharete   Ampharetidae     Terebellida   Polychaeta
+129892  129892  Mediomastus   Capitellidae     Capitellida   Polychaeta
+101891  101891    Ampelisca   Ampeliscidae       Amphipoda Malacostraca
+101928  101928    Ampelisca   Ampeliscidae       Amphipoda Malacostraca
+107327  107327      Inachus      Inachidae        Decapoda Malacostraca
+107397  107397   Macropipus     Polybiidae        Decapoda Malacostraca
+107350  107350         Maja        Majidae        Decapoda Malacostraca
+107188  107188      Pisidia  Porcellanidae        Decapoda Malacostraca
+111082  111082    Pentapora Bitectiporidae Cheilostomatida Gymnolaemata
+103882  103882    Dendrodoa      Styelidae Stolidobranchia   Ascidiacea
+100930  100930    Actinauge   Hormathiidae      Actiniaria     Anthozoa
+117890  117890 Hydrallmania  Sertulariidae    Leptothecata     Hydrozoa
+100913  100913   Protanthea  Gonactiniidae      Actiniaria     Anthozoa
+100834  100834     Urticina     Actiniidae      Actiniaria     Anthozoa
+125073  125073     Amphiura    Amphiuridae       Ophiurida  Ophiuroidea
+124913  124913      Ophiura     Ophiuridae       Ophiurida  Ophiuroidea
+138824  138824      Astarte     Astartidae      Carditoida     Bivalvia
+140592  140592       Nucula      Nuculidae        Nuculida     Bivalvia
+345281  345281      Mysella   Montacutidae       Veneroida     Bivalvia
+              Phylum
+129777      Annelida
+129892      Annelida
+101891    Arthropoda
+101928    Arthropoda
+107327    Arthropoda
+107397    Arthropoda
+107350    Arthropoda
+107188    Arthropoda
+111082       Bryozoa
+103882      Chordata
+100930      Cnidaria
+117890      Cnidaria
+100913      Cnidaria
+100834      Cnidaria
+125073 Echinodermata
+124913 Echinodermata
+138824      Mollusca
+140592      Mollusca
+345281      Mollusca
+
+[[6]]
+       Species         Genus         Family           Order        Class
+103058  103058   Bathyporeia Bathyporeiidae       Amphipoda Malacostraca
+118852  118852      Eurydice    Cirolanidae         Isopoda Malacostraca
+103066  103066   Bathyporeia Bathyporeiidae       Amphipoda Malacostraca
+111351  111351      Conopeum     Electridae Cheilostomatida Gymnolaemata
+103890  103890      Distomus      Styelidae Stolidobranchia   Ascidiacea
+128506  128506    Funiculina  Funiculinidae    Pennatulacea     Anthozoa
+101002  101002 Sagartiogeton    Sagartiidae      Actiniaria     Anthozoa
+124201  124201       Antedon    Antedonidae      Comatulida    Crinoidea
+138760  138760     Aporrhais    Aporrhaidae Littorinimorpha   Gastropoda
+140744  140744       Philine     Philinidae   Cephalaspidea   Gastropoda
+              Phylum
+103058    Arthropoda
+118852    Arthropoda
+103066    Arthropoda
+111351       Bryozoa
+103890      Chordata
+128506      Cnidaria
+101002      Cnidaria
+124201 Echinodermata
+138760      Mollusca
+140744      Mollusca
+
+[[7]]
+       Species        Genus          Family           Order        Class
+131495  131495       Lanice    Terebellidae     Terebellida   Polychaeta
+130357  130357      Nephtys      Nephtyidae    Phyllodocida   Polychaeta
+131051  131051      Serpula      Serpulidae       Sabellida   Polychaeta
+102101  102101    Corophium     Corophiidae       Amphipoda Malacostraca
+103862  103862    Botryllus       Styelidae Stolidobranchia   Ascidiacea
+117870  117870  Abietinaria   Sertulariidae    Leptothecata     Hydrozoa
+100936  100936  Amphianthus    Hormathiidae      Actiniaria     Anthozoa
+283798  283798   Cerianthus    Cerianthidae    Ceriantharia     Anthozoa
+100982  100982    Metridium     Metridiidae      Actiniaria     Anthozoa
+124273  124273 Echinocyamus  Echinocyamidae  Clypeasteroida   Echinoidea
+132473  132473     Axinella     Axinellidae   Halichondrida Demospongiae
+165801  165801 Halichondria Halichondriidae   Halichondrida Demospongiae
+              Phylum
+131495      Annelida
+130357      Annelida
+131051      Annelida
+102101    Arthropoda
+103862      Chordata
+117870      Cnidaria
+100936      Cnidaria
+283798      Cnidaria
+100982      Cnidaria
+124273 Echinodermata
+132473      Porifera
+165801      Porifera
+
+[[8]]
+       Species       Genus          Family           Order        Class
+129840  129840   Aphrodita    Aphroditidae    Phyllodocida   Polychaeta
+152302  152302     Hediste      Nereididae    Phyllodocida   Polychaeta
+131141  131141    Polydora       Spionidae        Spionida   Polychaeta
+555935  555935 Pomatoceros      Serpulidae       Sabellida   Polychaeta
+131183  131183        Spio       Spionidae        Spionida   Polychaeta
+131187  131187  Spiophanes       Spionidae        Spionida   Polychaeta
+102431  102431       Jassa  Ischyroceridae       Amphipoda Malacostraca
+107387  107387 Liocarcinus      Polybiidae        Decapoda Malacostraca
+111166  111166      Bugula       Bugulidae Cheilostomatida Gymnolaemata
+111355  111355     Electra      Electridae Cheilostomatida Gymnolaemata
+146830  146830    Umbonula     Umbonulidae Cheilostomatida Gymnolaemata
+125333  125333   Alcyonium     Alcyoniidae      Alcyonacea     Anthozoa
+117389  117389      Obelia Campanulariidae    Leptothecata     Hydrozoa
+117913  117913  Sertularia   Sertulariidae    Leptothecata     Hydrozoa
+117994  117994   Tubularia    Tubulariidae   Anthoathecata     Hydrozoa
+128539  128539  Virgularia   Virgulariidae    Pennatulacea     Anthozoa
+124373  124373  Brissopsis       Brissidae     Spatangoida   Echinoidea
+141433  141433        Abra       Semelidae       Veneroida     Bivalvia
+138802  138802     Arctica      Arcticidae       Veneroida     Bivalvia
+140480  140480     Mytilus       Mytilidae       Mytiloida     Bivalvia
+140589  140589      Nucula       Nuculidae        Nuculida     Bivalvia
+              Phylum
+129840      Annelida
+152302      Annelida
+131141      Annelida
+555935      Annelida
+131183      Annelida
+131187      Annelida
+102431    Arthropoda
+107387    Arthropoda
+111166       Bryozoa
+111355       Bryozoa
+146830       Bryozoa
+125333      Cnidaria
+117389      Cnidaria
+117913      Cnidaria
+117994      Cnidaria
+128539      Cnidaria
+124373 Echinodermata
+141433      Mollusca
+138802      Mollusca
+140480      Mollusca
+140589      Mollusca
+
+[[9]]
+       Species        Genus        Family           Order       Class
+123920  123920       Luidia     Luidiidae     Paxillosida  Asteroidea
+124929  124929      Ophiura    Ophiuridae       Ophiurida Ophiuroidea
+125166  125166      Porania    Poraniidae       Valvatida  Asteroidea
+124319  124319 Psammechinus  Parechinidae     Camarodonta  Echinoidea
+124418  124418    Spatangus   Spatangidae     Spatangoida  Echinoidea
+138761  138761    Aporrhais   Aporrhaidae Littorinimorpha  Gastropoda
+138878  138878     Buccinum    Buccinidae   Neogastropoda  Gastropoda
+138899  138899        Colus    Buccinidae   Neogastropoda  Gastropoda
+138920  138920     Neptunea    Buccinidae   Neogastropoda  Gastropoda
+140403  140403      Nucella     Muricidae   Neogastropoda  Gastropoda
+141872  141872   Turritella Turritellidae Caenogastropoda  Gastropoda
+              Phylum
+123920 Echinodermata
+124929 Echinodermata
+125166 Echinodermata
+124319 Echinodermata
+124418 Echinodermata
+138761      Mollusca
+138878      Mollusca
+138899      Mollusca
+138920      Mollusca
+140403      Mollusca
+141872      Mollusca
+
+[[10]]
+       Species    Genus    Family     Order    Class   Phylum
+140467  140467 Modiolus Mytilidae Mytiloida Bivalvia Mollusca
+
+[[11]]
+       Species           Genus           Family           Order
+129938  129938    Aphelochaeta     Cirratulidae     Terebellida
+129868  129868       Arenicola     Arenicolidae     Capitellida
+129876  129876       Capitella     Capitellidae     Capitellida
+129955  129955      Chaetozone     Cirratulidae     Terebellida
+130987  130987         Ditrupa       Serpulidae       Sabellida
+130866  130866      Sabellaria    Sabellariidae       Sabellida
+129959  129959      Cirratulus     Cirratulidae     Terebellida
+107218  107218      Anapagurus        Paguridae        Decapoda
+107276  107276          Cancer        Cancridae        Decapoda
+106230  106230      Chthamalus     Chthamalidae        Sessilia
+107643  107643 Dichelopandalus       Pandalidae        Decapoda
+107253  107253         Homarus      Nephropidae        Decapoda
+106210  106210     Semibalanus Archaeobalanidae        Sessilia
+235385  235385       Neocrania        Craniidae        Craniida
+103732  103732           Ciona         Cionidae  Phlebobranchia
+103552  103552       Clavelina     Clavelinidae Aplousobranchia
+100931  100931         Adamsia     Hormathiidae      Actiniaria
+100817  100817        Bolocera       Actiniidae      Actiniaria
+135144  135144    Caryophyllia  Caryophylliidae    Scleractinia
+125366  125366       Eunicella      Gorgoniidae      Alcyonacea
+125080  125080        Amphiura      Amphiuridae       Ophiurida
+123776  123776        Asterias       Asteriidae   Forcipulatida
+123987  123987        Asterina      Asterinidae       Valvatida
+139410  139410         Corbula       Corbulidae          Myoida
+138963  138963       Crepidula    Calyptraeidae Littorinimorpha
+151628  151628        Hydrobia      Hydrobiidae Littorinimorpha
+140430  140430             Mya           Myidae          Myoida
+140712  140712          Pecten       Pectinidae      Pectinoida
+140301  140301         Spisula        Mactridae       Veneroida
+              Class        Phylum
+129938   Polychaeta      Annelida
+129868   Polychaeta      Annelida
+129876   Polychaeta      Annelida
+129955   Polychaeta      Annelida
+130987   Polychaeta      Annelida
+130866   Polychaeta      Annelida
+129959   Polychaeta      Annelida
+107218 Malacostraca    Arthropoda
+107276 Malacostraca    Arthropoda
+106230  Maxillopoda    Arthropoda
+107643 Malacostraca    Arthropoda
+107253 Malacostraca    Arthropoda
+106210  Maxillopoda    Arthropoda
+235385     Craniata   Brachiopoda
+103732   Ascidiacea      Chordata
+103552   Ascidiacea      Chordata
+100931     Anthozoa      Cnidaria
+100817     Anthozoa      Cnidaria
+135144     Anthozoa      Cnidaria
+125366     Anthozoa      Cnidaria
+125080  Ophiuroidea Echinodermata
+123776   Asteroidea Echinodermata
+123987   Asteroidea Echinodermata
+139410     Bivalvia      Mollusca
+138963   Gastropoda      Mollusca
+151628   Gastropoda      Mollusca
+140430     Bivalvia      Mollusca
+140712     Bivalvia      Mollusca
+140301     Bivalvia      Mollusca
+</code></pre>
+
+</body>
+
+</html>
+

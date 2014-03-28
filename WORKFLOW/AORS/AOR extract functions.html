@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>AOR extract functions.R</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<!-- Automatically generated by RStudio [12861c30b10411e1afa60800200c9a66] -->
+
+<h3>AOR extract functions.R</h3>
+
+<p>annakrystalli &mdash; <em>Jan 2, 2014, 6:22 PM</em></p>
+
+<pre><code class="r">library(calibrate)
+</code></pre>
+
+<pre><code>Loading required package: MASS
+</code></pre>
+
+<pre><code class="r">
+    normalize &lt;- function(x, a=NULL, b=NULL) {
+            if(is.null(a) &amp; is.null(b)){x.n&lt;-(x-min(x)) / diff(range(x))}
+            if(!is.null(a)){
+              x.n &lt;- (a*diff(range(x))+((x-min(x))*(1-a))) / diff(range(x))}
+            if(!is.null(b)){
+              x.n &lt;- (b*diff(range(x))-((max(x)-x)*(b))) / diff(range(x))}
+            x.n
+          } 
+
+#______________________________________________________________________________
+
+    plotAORseason&lt;-function(AB=AB, oc=oc, mm=mm, yr=yr, year, plot=F, a, b, an.ID=NULL){
+
+            library(calibrate)
+            x=AB[yr==year &amp; oc&gt;0][order(mm[yr==year &amp; oc&gt;0])]
+            y=oc[yr==year &amp; oc&gt;0][order(mm[yr==year &amp; oc&gt;0])]
+            m=mm[yr==year &amp; oc&gt;0][order(mm[yr==year &amp; oc&gt;0])]
+
+            dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;, 
+                                  an.ID,&quot;AORS/seasonal/&quot;,sep=&quot;&quot;), showWarnings=F)
+            nm=length(m)
+            x.n&lt;-normalize(x)
+
+            #Set up colors
+                nma&lt;-round(normalize(((2*(y*x.n))/(y+x.n)),a=a, b=b), digits=2)
+                cols&lt;-rgb(red=y, green=0, blue=x.n, 
+                          alpha=nma,
+                          maxColorValue = 1)
+
+            dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;, 
+                                  an.ID,&quot;AORS/seasonal/&quot;,spp,sep=&quot;&quot;), showWarnings=F)
+
+            if(plot!=T){png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/seasonal/&quot;,spp,&quot;/&quot;, year, &quot;.png&quot;, sep=&quot;&quot;),
+                                width=600, height=600)} 
+            #Set up par
+                par(bg=&quot;black&quot;, col=&quot;white&quot;, font=2, fg=&quot;white&quot;, col.axis=&quot;white&quot;, col.main=&quot;white&quot;)
+
+
+              plot(y~x, col=cols, pch=c(24, rep(21, times=nm-2),23), type=&quot;p&quot;, lty=3, bg=cols, 
+                   cex=c(1.3, rep(0.8, times=nm-2),1.5) , font=2, xlab=&quot;abundance&quot;, 
+                   ylab=&quot;occupancy&quot;, col.lab=&quot;white&quot;, cex.axis=0.8, main=paste(spp, year),
+                   ylim=c(0,1), xlim=c(0, ceiling(max(x))))
+
+                  arrows(x0=x[1:(length(x))-1], y0=y[1:(length(y))-1], 
+                         x1=x[2:(length(x))], y1=y[2:(length(y))], 
+                         col=cols[2:(length(m))],
+                         code=2, lty=3, lwd=2, length=0.2)
+
+                  textxy(X=x, Y=y, labs=m, dcol=&quot;white&quot;, cx=0.8)
+
+            if(plot!=T){dev.off()}
+    }
+
+#_____________________________________________________________________________________
+
+yearlyAORs&lt;-function(AB, oc, N, yr=yr, mm=mm, overall=T, plot=F, spp=spp, 
+                     an.ID=NULL, years=NULL, no.plot=T, PR, log=&quot;log&quot;){
+
+                dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;, sep=&quot;&quot;), showWarnings=F)
+                dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,sep=&quot;&quot;), showWarnings=F)
+
+                if(log==&quot;log&quot;){AB&lt;-log(AB)
+                               rm.0&lt;-which(is.infinite(AB))
+                               if(length(rm.0)==0){}else{
+                                 AB&lt;-AB[-rm.0]
+                                 oc&lt;-oc[-rm.0]
+                                 yr&lt;-yr[-rm.0]
+                                 N&lt;-N[-rm.0]
+                                 mm&lt;-mm[-rm.0]}}
+
+                x=AB
+                y=oc
+                n=N
+                y&lt;-as.integer(y*n)/n
+
+                glm.dat&lt;-NULL
+
+                cols.matrix&lt;-matrix(c( &quot;antiquewhite2&quot;,  &quot;darkgoldenrod4&quot;,
+                                       &quot;honeydew1&quot;, &quot;aquamarine4&quot;, 
+                                       &quot;seashell1&quot;,&quot;palevioletred4&quot;,
+                                       &quot;thistle1&quot;, &quot;purple3&quot;,
+                                       &quot;whitesmoke&quot;,&quot;turquoise4&quot;),
+                                    nrow=5, ncol=2, byrow=TRUE)
+
+
+                spps=c(&quot;chel&quot;, &quot;cfin&quot;, &quot;tem&quot;, &quot;centrot&quot;, &quot;metrilu&quot;)
+                spp.col&lt;-cols.matrix[which(spps==spp, arr.ind=T),]
+                FUN.c&lt;-colorRampPalette(spp.col, space=&quot;Lab&quot;)
+
+          #Fit &amp; predict overall glm
+          glm.all&lt;-glm(y~x, family=binomial, weights=n)
+          newdat.all&lt;-data.frame(x=seq(min(x),max(x), length.out=30))
+          newy.all&lt;-predict.glm(glm.all, newdata=newdat.all,type=&quot;response&quot;)
+
+           glm.dat&lt;-c(glm.all$coefficients, glm.all$deviance)
+
+
+
+          if(overall==T){
+            glm.tab&lt;-matrix(glm.dat, ncol=1, nrow=3, 
+                            dimnames=list(c(&quot;a&quot;, &quot;b&quot;, &quot;dev&quot;),&quot;overall&quot;))
+
+                if(no.plot==T){}else{
+
+            m.fun&lt;-function(X){which(X==max(X), arr.ind=T)}
+            m.max&lt;-round(mean(tapply(AB, INDEX=as.factor(yr), FUN=m.fun)))
+
+as.numeric(names(table(m.max))[which.max(table(m.max))]) 
+                      months&lt;-sort(unique(as.factor(mm)))
+                      main.lab&lt;-paste(spp,&quot;overall AOR across all monthly data&quot;)
+                      cols.l&lt;-FUN.c(n=12)
+                      cols&lt;-cols.l[mm]
+
+              if(plot!=T){if(PR==T){png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,
+                                             &quot;AORS/yearly/&quot;,spp,
+                                             &quot; PROC overall.png&quot;, sep=&quot;&quot;),  pointsize = 12,
+                              width=600, height=600)}else{
+                                png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,
+                                                                             &quot;AORS/yearly/&quot;,spp,
+                                                                             &quot; overall.png&quot;, sep=&quot;&quot;),  pointsize = 12,
+                                                              width=600, height=600)}} 
+
+                    par(bg=&quot;black&quot;, col=&quot;white&quot;,font=1, fg=&quot;white&quot;, col.axis=&quot;white&quot;,
+                          col.main=&quot;white&quot;, col.lab=&quot;white&quot;)
+
+                    plot(y~x, pch=21, bg=cols, col=cols, cex=0.9, 
+                         xlab=&quot;abundance&quot;, ylab=&quot;occupancy&quot;, 
+                         font=2, font.lab=2,cex.lab=0.9, cex.axis=0.9, 
+                         main=main.lab, ylim=c(0,1), xlim=c(0, round(max(x))))
+
+                      points(y=newy.all,x=unlist(newdat.all), type=&quot;l&quot;, lwd=1.3)
+                      legend(x=&quot;bottomright&quot;, pch=21, col=cols.l, pt.bg=cols.l, legend=months, 
+                             cex=0.8, bty=&quot;n&quot;)  
+
+                if(plot!=T){dev.off()}}}
+
+
+
+
+      if(overall==F){
+        if(is.null(years)){years&lt;-sort(unique(yr))}
+
+        if(no.plot==T){}else{
+        cols.matrix&lt;-matrix(c( &quot;antiquewhite2&quot;,  &quot;darkgoldenrod4&quot;,
+                               &quot;honeydew1&quot;, &quot;aquamarine4&quot;, 
+                               &quot;seashell1&quot;,&quot;palevioletred4&quot;,
+                               &quot;thistle1&quot;, &quot;purple3&quot;,
+                               &quot;whitesmoke&quot;,&quot;turquoise4&quot;),
+                            nrow=5, ncol=2, byrow=TRUE)
+
+                            spps=c(&quot;chel&quot;, &quot;cfin&quot;, &quot;tem&quot;, &quot;centrot&quot;, &quot;metrilu&quot;)
+                            spp.id&lt;-which(spps==spp, arr.ind=T)
+                            spp.col&lt;-cols.matrix[spp.id,]
+                            FUN.c&lt;-colorRampPalette(spp.col, space=&quot;Lab&quot;)
+
+
+        sp.names&lt;-c(&quot;Calanus helgolandicus&quot;, &quot;Calanus finmarchicus&quot;, &quot;Temora longicornis&quot;, 
+                    &quot;Centropages typicus&quot;, &quot;Metridia lucens&quot;)
+                  main.lab&lt;-paste(sp.names[spp.id],&quot; intra annual AORs&quot;)
+                  cols.l&lt;-FUN.c(n=length(years))
+                  cols&lt;-cols.l[as.factor(yr)]
+
+          if(plot!=T){if(PR==T){png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;,spp,log,
+                                         &quot; PROC yearly.png&quot;, sep=&quot;&quot;),
+                          width=600, height=600,  pointsize = 12)}else{
+                            png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;,spp,log,
+                                 &quot; yearly.png&quot;, sep=&quot;&quot;),
+                                 width=600, height=600,  pointsize = 12)}} 
+
+              par(bg=&quot;black&quot;, col=&quot;white&quot;,font=1, fg=&quot;white&quot;, col.axis=&quot;white&quot;,
+                  col.main=&quot;white&quot;, col.lab=&quot;white&quot;)
+
+              plot(y~x, pch=21, bg=cols, col=cols, cex=0.8, xlab=paste(log, &quot; density&quot;,sep=&quot;&quot;), ylab=&quot;occupancy&quot;, 
+                   font=2, font.lab=2,cex.lab=0.9, cex.axis=0.9, main=main.lab, 
+                   ylim=c(0,1), xlim=c(0, 6))
+}
+
+                          for(year in years){
+
+                            #Fit &amp; predict overall glm
+                            x.yr&lt;-x[yr==year]
+                            y.yr&lt;-y[yr==year]
+                            n.yr&lt;-n[yr==year]
+
+                            glm.yr&lt;-glm(y.yr~x.yr, family=binomial, weights=n.yr)
+                            newdat&lt;-data.frame(x.yr=seq(min(x.yr),max(x.yr), length.out=30))
+                            newy&lt;-predict.glm(glm.yr, newdata=newdat, type=&quot;response&quot;)
+
+                            glm.dat.yr&lt;-c(glm.yr$coefficients, glm.yr$deviance)
+                            glm.dat&lt;-c(glm.dat, glm.dat.yr)
+
+                    if(no.plot==F){ points(y=newy,x=unlist(newdat), type=&quot;l&quot;, lwd=1.5,
+                                   col=cols.l[years==year])}}
+
+
+          if(no.plot==F){legend(x=&quot;bottomright&quot;, pch=21, col=cols.l, pt.bg=cols.l, legend=years, 
+                     cex=0.8, bty=&quot;n&quot;)  
+
+        if(plot!=T){dev.off()}}
+
+     glm.tab&lt;-matrix(glm.dat, ncol=length(years)+1, nrow=3, 
+                     dimnames=list(c(&quot;a&quot;, &quot;b&quot;, &quot;dev&quot;),c(&quot;overall&quot;, years)))
+      print(glm.tab)  
+   }
+
+  if(PR==T){save(glm.tab, file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,spp,spp.id,
+                    &quot; AOR PROC glm tab.RData&quot;, sep=&quot;&quot;))}else{
+                      save(glm.tab, file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,spp,spp.id,
+                                               &quot; AOR glm tab.RData&quot;, sep=&quot;&quot;))}
+}
+
+
+#_____________________________________________________________________________________
+
+AORextract&lt;-function(spp, a, b, y.plots=F, an.ID=NULL, an.IDCV,
+                     years=NULL, season=F, no.plot=T, hists=T, thresh){
+
+                      input.folder&lt;-paste(&quot;~/Documents/PREDICTED/&quot;,an.ID,&quot;normalised monthly maps/&quot;, sep=&quot;&quot;)
+
+                      av &lt;- read.csv(&quot;~/Documents/CPR/DATA/RAW DATA/Accepted values.csv&quot;)
+                      tv&lt;-c(&quot;tem&quot;, &quot;centrot&quot;)
+                      ec&lt;-c(&quot;chel&quot;, &quot;cfin&quot;, &quot;metrilu&quot;)
+
+                      require(nnet)
+
+                      dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;,an.ID,&quot;AORS/&quot;, 
+                                       sep=&quot;&quot;), showWarnings = F)
+
+                      dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;,an.ID,&quot;AORS/data&quot;, 
+                                            sep=&quot;&quot;), showWarnings = F)
+                      oc&lt;-NULL
+                      AB&lt;-NULL
+                      N&lt;-NULL
+                      yr&lt;-NULL
+                      mm&lt;-NULL
+
+                      load(file=paste(&quot;~/Documents/TRAINING DATA/Models/randomForest/&quot;,
+                                      an.IDCV,&quot;1/forests/thresholds.Rdata&quot;, sep=&quot;&quot;))
+
+      file.names&lt;-list.files(path=paste(input.folder, spp, sep=&quot;&quot;), all.files = FALSE)
+
+                      dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;, 
+                                            an.ID,&quot;monthly hists/&quot;, 
+                                            sep=&quot;&quot;), showWarnings = F) 
+                      dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;, 
+                                            an.ID,&quot;monthly hists/&quot;, 
+                                            spp,sep=&quot;&quot;), showWarnings = F)                    
+      #Histograms.............................                  
+          for(i in 1:length(file.names)){
+
+                      load(paste(input.folder,spp,&quot;/&quot;, file.names[i], sep=&quot;&quot;))
+
+                      if(any(preds$pred.oc&lt;0)){preds$pred.oc&lt;-preds$pred.oc+1}
+
+                      preds$pred.oc&lt;-as.numeric(preds$pred.oc&gt;=THRESH.spp[[spp]][thresh])
+
+                      if(hists==T){
+                                #Hist plots
+                                png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,
+                                                   &quot;monthly hists/&quot;, 
+                                                   spp,&quot;/&quot;, 
+                                                   file.names[i], &quot;.png&quot;, sep=&quot;&quot;), 
+                                    width=400, height=500) 
+
+                                hist(preds$pred.ac[preds$pred.oc==1], 
+                                     breaks=0:12, labels=as.character(1:12), freq=F, 
+                                     ylim=c(0,1), xlab=&quot;Abundance Categories&quot;, 
+                                     main=paste(spp,file.names[i]), col=&quot;darkslategray3&quot;, 
+                                     border=&quot;darkslategray&quot;, cex.axis=1)
+                                dev.off()}
+            #...................................              
+
+                n&lt;-dim(preds)[[1]]
+                oc&lt;-c(oc,sum(preds$pred.oc)/n)
+
+                ab&lt;-class.ind(preds$pred.ac[preds$pred.oc==1])
+                      add&lt;-setdiff(as.character(1:12),dimnames(ab)[[2]])
+                      ab&lt;-cbind(ab,matrix(0, nrow=length(preds$pred.ac[preds$pred.oc==1]), 
+                                          ncol=length(add), dimnames=list(NULL,add)))
+                      ab&lt;-ab[,order(as.numeric(colnames(ab)))]
+                     if(spp%in%ec){ab&lt;-ab%*%av$ave}else{ab&lt;-ab%*%av$avt}
+
+
+
+
+              AB&lt;-c(AB,mean(ab))
+              N&lt;-c(N,n)
+              mm&lt;-c(mm, as.numeric(strsplit(file.names[i], &quot;-&quot;)[[1]][2]))
+              yr&lt;-c(yr, as.numeric(strsplit(file.names[i], &quot;-&quot;)[[1]][1]))
+            }
+
+            AB[is.nan(AB)]&lt;-0
+
+  save(oc,AB,N,mm,yr,file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,
+                                spp,&quot; monthly AOR.Rdata&quot;,sep=&quot;&quot;))
+
+      #PLOTS
+      if(season==T){
+              #plot seasonal
+              if(is.null(years)){years&lt;-unique(yr)}
+
+              for(year in years){
+                plotAORseason(AB=AB, oc=oc, mm=mm, year=year, yr=yr, plot=F, 
+                              b=b, a=a, an.ID=an.ID)}}
+
+              if(y.plots==F){png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, 
+                                                an.ID,&quot;AORS/yearly/&quot;,spp,
+                                                             &quot; combo yearly.png&quot;, sep=&quot;&quot;),
+                                              width=600, height=1200)
+             par(mfrow=c(2,1))
+              plot&lt;-T}else{plot&lt;-F}                
+
+              #plot overall
+              yearlyAORs(AB=AB, oc=oc, N=N, yr=yr, mm=mm, overall=T, plot=plot, 
+                         spp=spp, an.ID=an.ID, years=years, no.plot=T, PR=F)
+
+              #plot yearly
+              yearlyAORs(AB=AB, oc=oc, N=N, yr=yr, mm=mm, overall=F, plot=plot, 
+                         spp=spp, an.ID=an.ID, years=years, no.plot=T, PR=F)
+
+                              if(y.plots==F){dev.off()}
+}
+
+
+#_____________________________________________________________________________________
+plotYearly&lt;-function(pt=12, y.plots=F, spp=spp, 
+                     an.ID=NULL, years=NULL, no.plot=F, PR=T, log=&quot;log&quot;){
+
+  if(PR==T){load(file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,
+                              spp,&quot; PROC monthly AOR.Rdata&quot;,sep=&quot;&quot;))
+              mm&lt;-MM
+              yr&lt;-YR}else{
+            load(file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,
+                              spp,&quot; monthly AOR.Rdata&quot;,sep=&quot;&quot;))}
+
+  if(y.plots==F){if(PR==T){png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;,spp,
+                                              &quot; PROC combo yearly.png&quot;, sep=&quot;&quot;),
+                               width=600, height=1200,  pointsize = pt)}else{
+                                 png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;,spp,
+                                    &quot; combo yearly.png&quot;, sep=&quot;&quot;),
+                     width=600, height=1200,  pointsize = pt)}
+                 par(mfrow=c(2,1))
+                 plot&lt;-T}else{plot&lt;-F}   
+
+
+  #plot overall
+  yearlyAORs(AB=AB, oc=oc, N=N, yr=yr, mm=mm, overall=T, plot=plot, spp=spp, 
+             an.ID=an.ID, years=years, no.plot=no.plot, PR=PR)
+
+  #plot yearly
+  yearlyAORs(AB=AB, oc=oc, N=N, yr=yr, mm=mm, overall=F, plot=plot, spp=spp, 
+             an.ID=an.ID, years=years, no.plot=no.plot, PR=PR)
+
+  if(y.plots==F){dev.off()}}
+
+#_____________________________________________________________________________________
+plotYearlyAll&lt;-function(pt=12, y.plots=F, input.folder=input.folder, 
+                        an.ID=NULL, years=NULL, no.plot=F, plot=T){
+
+
+
+
+  if(y.plots==F){png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,
+                                    &quot;AORS/yearly/all combo yearly.png&quot;,sep=&quot;&quot;),
+                     width=5*600, height=1200,  pointsize = pt)
+                 par(mfcol=c(2,5))
+                 plot&lt;-T}else{plot&lt;-F}   
+
+  for(spp in c(&quot;chel&quot;, &quot;cfin&quot;,&quot;metrilu&quot;, &quot;tem&quot;, &quot;centrot&quot;)){
+
+  load(file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,
+                  spp,&quot; monthly AOR.Rdata&quot;,sep=&quot;&quot;))
+
+  #plot overall
+  yearlyAORs(AB=AB, oc=oc, N=N, yr=yr, mm=mm, overall=T, plot=plot, spp=spp, 
+             an.ID=an.ID, years=years, no.plot=no.plot)
+
+  #plot yearly
+  yearlyAORs(AB=AB, oc=oc, N=N, yr=yr, mm=mm, overall=F, plot=plot, spp=spp, 
+             an.ID=an.ID, years=years, no.plot=no.plot)}
+
+  if(y.plots==F){dev.off()}}
+#_____________________________________________________________________________________
+imputeMonths&lt;-function(imp.var, yr, mm, dn.wt=1){
+
+  r&lt;-length(unique(yr))
+  c&lt;-length(unique(mm))
+  imp.mat&lt;-matrix(NA, r,c)
+
+  imp.mat[cbind(as.numeric(factor(yr)), mm)]&lt;-imp.var
+  imp.mat&lt;-imp.mat[-1,]
+
+  yr.means&lt;-rowMeans(imp.mat, na.rm=T)
+
+
+  yr.dev&lt;-vector(length=13)
+  mm.means&lt;-colMeans(imp.mat, na.rm=T)
+
+  for(i in 1:13){
+    yr.dev[i]&lt;-yr.means[i]/mean(colMeans(imp.mat[,!is.na(imp.mat[i,])], na.rm=T))}
+
+  imp.id&lt;-which(is.na(imp.mat), arr.ind=T)
+  imp.mat[imp.id]&lt;-mm.means[imp.id[,2]]*yr.dev[imp.id[,1]]*dn.wt
+
+  as.vector(imp.mat)}
+
+#_____________________________________________________________________________________
+processAORdat&lt;-function(an.ID){
+
+  YR&lt;-rep(1998:2010, times=12)
+  MM&lt;-rep(1:12, each=13)
+
+  for (spp in c(&quot;chel&quot;,&quot;cfin&quot;, &quot;metrilu&quot;, &quot;tem&quot;, &quot;centrot&quot;)){
+
+    load(paste(&quot;~/Documents/PREDICTED/&quot;,an.ID,&quot;/AORS/data/&quot;,spp,&quot; monthly AOR.Rdata&quot;, sep=&quot;&quot;) ) 
+
+    AB&lt;-imputeMonths(AB, yr, mm, dn.wt=1)
+    oc&lt;-imputeMonths(oc, yr, mm, dn.wt=1)
+    oc[oc&gt;1]&lt;-1
+    N&lt;-imputeMonths(N, yr, mm, dn.wt=0.1)
+    oc&lt;-as.integer(oc*N)/N
+
+    save(AB, oc, N, YR, MM, file=paste(&quot;~/Documents/PREDICTED/&quot;,
+                                       an.ID,&quot;/AORS/data/&quot;,spp,&quot; PROC monthly AOR.Rdata&quot;, sep=&quot;&quot;))}}
+#_____________________________________________________________________________________
+
+interannualAOR&lt;-function(plot=F, spp=spp,  xlim, pt=12,
+                     an.ID=NULL, years=NULL, no.plot=F, PR=PR, log=&quot;log&quot;){
+
+  if(PR==T){load(file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,
+                            spp,&quot; PROC monthly AOR.Rdata&quot;,sep=&quot;&quot;))
+            mm&lt;-MM
+            yr&lt;-YR}else{
+              load(file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,
+                              spp,&quot; monthly AOR.Rdata&quot;,sep=&quot;&quot;))}
+
+
+  dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;, sep=&quot;&quot;), showWarnings=F)
+  dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,sep=&quot;&quot;), showWarnings=F)
+
+
+  if(log==&quot;log&quot;){AB&lt;-log(AB)
+  rm.0&lt;-which(is.infinite(AB))
+                 if(length(rm.0)==0){}else{
+                  AB&lt;-AB[-rm.0]
+                  oc&lt;-oc[-rm.0]
+                  yr&lt;-yr[-rm.0]
+                  N&lt;-N[-rm.0]
+                  mm&lt;-mm[-rm.0]}}
+
+  x.e=unlist(lapply(split(AB, yr), mean))
+  y.e=unlist(lapply(split(oc, yr), mean))
+  n.e=unlist(lapply(split(N, yr), mean))
+  y.e&lt;-as.integer(y.e*n.e)/n.e
+  yr.e&lt;-unique(yr)
+
+  std &lt;- function(x) sd(x)/sqrt(length(x))
+
+  x.e.sd=unlist(lapply(split(AB, yr), std))
+  y.e.sd=unlist(lapply(split(oc, yr), std))
+  n.e.sd=unlist(lapply(split(N, yr), std))
+
+
+  glm.dat&lt;-NULL
+
+
+
+  #Fit &amp; predict inter annual glm
+  glm.inter&lt;-glm(y.e~x.e, family=binomial, weights=n.e)
+  newdat.inter&lt;-data.frame(x.e=seq(min(x.e),max(x.e), length.out=30))
+  newy.inter&lt;-predict.glm(glm.inter, newdata=newdat.inter,type=&quot;response&quot;)
+
+  glm.dat&lt;-c(glm.inter$coefficients, glm.inter$deviance, summary(glm.inter)$coefficients[,4], cor(y.e, x.e))
+
+
+    if(is.null(years)){years&lt;-sort(unique(yr))}
+
+    if(no.plot==T){}else{
+      cols.matrix&lt;-matrix(c( &quot;antiquewhite2&quot;,  &quot;darkgoldenrod4&quot;,
+                             &quot;honeydew1&quot;, &quot;aquamarine4&quot;, 
+                             &quot;seashell1&quot;,&quot;palevioletred4&quot;,
+                             &quot;thistle1&quot;, &quot;purple3&quot;,
+                             &quot;whitesmoke&quot;,&quot;turquoise4&quot;),
+                          nrow=5, ncol=2, byrow=TRUE)
+
+      spps=c(&quot;chel&quot;, &quot;cfin&quot;, &quot;tem&quot;, &quot;centrot&quot;, &quot;metrilu&quot;)
+      spp.id&lt;-which(spps==spp, arr.ind=T)
+      spp.col&lt;-cols.matrix[spp.id,]
+      sp.names&lt;-c(&quot;Calanus helgolandicus&quot;, &quot;Calanus finmarchicus&quot;, &quot;Temora longicornis&quot;, 
+                  &quot;Centropages typicus&quot;, &quot;Metridia lucens&quot;)
+      FUN.c&lt;-colorRampPalette(spp.col, space=&quot;Lab&quot;)
+
+
+      main.lab&lt;-sp.names[spp.id] 
+      cols.l&lt;-FUN.c(n=length(years))
+      cols.y&lt;-cols.l[as.factor(yr.e)]
+
+      if(plot!=T){if(PR==T){png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;,spp,
+                                               &quot; PROC inter annual.png&quot;, sep=&quot;&quot;),
+                                width=600, height=600,  pointsize = pt)}else{
+                                  png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;,spp,
+                                                     &quot; inter annual.png&quot;, sep=&quot;&quot;),
+                                      width=600, height=600,  pointsize = pt)}} 
+
+      par(bg=&quot;transparent&quot;, col=&quot;white&quot;,font=1, fg=&quot;white&quot;, col.axis=&quot;white&quot;,
+          col.main=&quot;white&quot;, col.lab=&quot;white&quot;, las=1)
+
+      plot(y.e~x.e, pch=21, bg=cols.y, col=cols.y, cex=0.9, xlab=paste(log,&quot; density&quot;, sep=&quot;&quot;), ylab=&quot;occupancy&quot;,
+           font=2, font.lab=2,cex.lab=1.1, cex.axis=1.1, main=main.lab, cex.main=1.2,
+           ylim=c(0,1), xlim=xlim)
+
+      rect(par(&quot;usr&quot;)[1], par(&quot;usr&quot;)[3], par(&quot;usr&quot;)[2], par(&quot;usr&quot;)[4], col = 
+             &quot;black&quot;)
+
+      points(y.e~x.e, pch=21, bg=cols.y, col=cols.y, cex=0.9, ylim=c(0,1), xlim=xlim)
+
+      points(y=newy.inter,x=unlist(newdat.inter), type=&quot;l&quot;, lwd=3.5)
+
+      legend(x=&quot;bottomright&quot;, pch=21, col=cols.l, pt.bg=cols.l, 
+                          legend=years, 
+                          cex=0.8, bty=&quot;n&quot;)  
+
+                   if(plot!=T){dev.off()}}
+
+
+    x=AB
+    y=oc
+    n=N
+    y&lt;-as.integer(y*n)/n
+
+
+
+
+    #Fit &amp; predict overall glm
+    glm.all&lt;-glm(y~x, family=binomial, weights=n)
+    newdat.all&lt;-data.frame(x=seq(min(x),max(x), length.out=30))
+    newy.all&lt;-predict.glm(glm.all, newdata=newdat.all,type=&quot;response&quot;)
+
+    glm.dat&lt;-c(glm.dat, c(glm.all$coefficients, glm.all$deviance), 
+               summary(glm.all)$coefficients[,4], cor(y, x))
+
+
+      if(is.null(years)){years&lt;-sort(unique(yr))}
+
+      if(no.plot==T){}else{
+
+        cols&lt;-cols.l[as.factor(yr)]
+
+        if(plot!=T){if(PR==T){png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;,spp,log,
+                                                 &quot; PROC intra.png&quot;, sep=&quot;&quot;),
+                                  width=600, height=600,  pointsize = pt)}else{
+                                    png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;,spp,log,
+                                                       &quot; intra.png&quot;, sep=&quot;&quot;),
+                                        width=600, height=600,  pointsize = pt)}} 
+
+        par(bg=&quot;transparent&quot;, col=&quot;white&quot;,font=1, fg=&quot;white&quot;, col.axis=&quot;white&quot;,
+            col.main=&quot;white&quot;, col.lab=&quot;white&quot;, las=1)
+
+        plot(y~x, pch=21, bg=cols, col=cols, cex=0.9, xlab=paste(log, &quot; density&quot;,sep=&quot;&quot;), ylab=&quot;occupancy&quot;, 
+             font=2, font.lab=2,cex.lab=1.1, cex.axis=1.1, main=main.lab, cex.main=1.2,
+             ylim=c(0,1), xlim=xlim)
+
+        rect(par(&quot;usr&quot;)[1], par(&quot;usr&quot;)[3], par(&quot;usr&quot;)[2], par(&quot;usr&quot;)[4], col = 
+               &quot;black&quot;)
+
+        points(y~x, pch=21, bg=cols, col=cols, cex=0.9, ylim=c(0,1), xlim=xlim)
+      }
+
+      for(year in years){
+
+        #Fit &amp; predict overall glm
+        x.yr&lt;-x[yr==year]
+        y.yr&lt;-y[yr==year]
+        n.yr&lt;-n[yr==year]
+
+        glm.yr&lt;-glm(y.yr~x.yr, family=binomial, weights=n.yr)
+        newdat&lt;-data.frame(x.yr=seq(min(x.yr),max(x.yr), length.out=30))
+        newy&lt;-predict.glm(glm.yr, newdata=newdat, type=&quot;response&quot;)
+
+        glm.dat.yr&lt;-c(glm.yr$coefficients, glm.yr$deviance, 
+                      summary(glm.yr)$coefficients[,4], cor(y.yr, x.yr))
+        glm.dat&lt;-c(glm.dat, glm.dat.yr)
+
+        if(no.plot==F){ points(y=newy,x=unlist(newdat), type=&quot;l&quot;, lwd=2,
+                               col=cols.l[years==year])}}
+
+
+      if(no.plot==F){legend(x=&quot;bottomright&quot;, pch=21, col=cols.l, pt.bg=cols.l, legend=years, 
+                            cex=0.8, bty=&quot;n&quot;)  
+
+                     if(plot!=T){dev.off()}}
+
+      glm.tab&lt;-matrix(glm.dat, ncol=length(years)+2, nrow=6, 
+                      dimnames=list(c(&quot;interecept&quot;, &quot;slope&quot;, &quot;dev&quot;, &quot;p interecept&quot;, &quot;p slope&quot;,
+                                      &quot;correlation&quot;),c(&quot;inter&quot;,&quot;overall&quot;, years)))
+
+      var.tab&lt;-matrix(c(var(glm.tab[2,3:dim(glm.tab)[2]]),
+      var(glm.tab[2,3:dim(glm.tab)[2]])/mean(glm.tab[2,3:dim(glm.tab)[2]]),
+      sd(glm.tab[2,3:dim(glm.tab)[2]]),
+      std(glm.tab[2,3:dim(glm.tab)[2]]),
+      mean(glm.tab[2,3:dim(glm.tab)[2]]),                  
+                        var(glm.tab[6,3:dim(glm.tab)[2]]),
+                        var(glm.tab[6,3:dim(glm.tab)[2]])/mean(glm.tab[2,3:dim(glm.tab)[2]]),
+                        sd(glm.tab[6,3:dim(glm.tab)[2]]),
+                        std(glm.tab[6,3:dim(glm.tab)[2]]),
+                        mean(glm.tab[6,3:dim(glm.tab)[2]])),5,2,
+                      dimnames=list(c(&quot;variance&quot;,  &quot;std variance&quot;, &quot;sd&quot;, &quot;se&quot;,
+                                      &quot;mean&quot;),c(&quot;slope&quot;,&quot;correlation&quot;)))
+      print(spp)                  
+      print(signif(glm.tab, digits=3))  
+      print(var.tab)
+
+    if(PR==T){save(glm.tab, var.tab, file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,spp,spp.id,
+                                       &quot; AOR PROC inter glm tab.RData&quot;, sep=&quot;&quot;))}else{
+                                         save(glm.tab, var.tab, file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,spp,spp.id,
+                                                                  &quot; AOR glm inter tab.RData&quot;, sep=&quot;&quot;))}
+
+  if(PR==T){write.csv(glm.tab, file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,spp,spp.id,
+                                              &quot; AOR PROC glm table.csv&quot;, sep=&quot;&quot;))}else{
+                                                write.csv(glm.tab, file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,spp,spp.id,
+                                                                         &quot; AOR glm table.csv&quot;, sep=&quot;&quot;))}
+  if(PR==T){write.csv(var.tab, file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,spp,spp.id,
+                                              &quot; AOR PROC variance table.csv&quot;, sep=&quot;&quot;))}else{
+                                                write.csv(var.tab, file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,spp,spp.id,
+                                                                         &quot; AOR variance table.csv&quot;, sep=&quot;&quot;))}
+ #....ALL..............................
+
+  if(no.plot==T){}else{
+
+
+    cols.l&lt;-FUN.c(n=length(years))
+    cols&lt;-cols.l[as.factor(yr)]
+
+    if(plot!=T){if(PR==T){png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;,spp,log,
+                                             &quot; PROC all.png&quot;, sep=&quot;&quot;),
+                              width=600, height=600,  pointsize = pt)}else{
+                                png(filename=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/yearly/&quot;,spp,log,
+                                                   &quot; all.png&quot;, sep=&quot;&quot;),
+                                    width=600, height=600,  pointsize = pt)}} 
+
+    par(bg=&quot;transparent&quot;, col=&quot;white&quot;,font=1, fg=&quot;white&quot;, col.axis=&quot;white&quot;,
+        col.main=&quot;white&quot;, col.lab=&quot;white&quot;, las=1)
+
+    plot(y~x, pch=1, bg=cols, col=cols, cex=0.9, xlab=paste(log, &quot; density&quot;,sep=&quot;&quot;), ylab=&quot;occupancy&quot;, 
+         font=2, font.lab=2,cex.lab=1.1, cex.axis=1.1, main=main.lab, cex.main=1.2,
+         ylim=c(0,1), xlim=xlim)
+
+    rect(par(&quot;usr&quot;)[1], par(&quot;usr&quot;)[3], par(&quot;usr&quot;)[2], par(&quot;usr&quot;)[4], col = 
+           &quot;black&quot;)
+    points(y~x, pch=1, bg=cols, col=cols, cex=0.9, ylim=c(0,1), xlim=xlim)
+  }
+
+  for(year in years){
+
+    #Fit &amp; predict overall glm
+    x.yr&lt;-x[yr==year]
+    y.yr&lt;-y[yr==year]
+    n.yr&lt;-n[yr==year]
+
+    glm.yr&lt;-glm(y.yr~x.yr, family=binomial, weights=n.yr)
+    newdat&lt;-data.frame(x.yr=seq(min(x.yr),max(x.yr), length.out=30))
+    newy&lt;-predict.glm(glm.yr, newdata=newdat, type=&quot;response&quot;)
+
+
+    if(no.plot==F){points(y=newy,x=unlist(newdat), type=&quot;l&quot;, lwd=2.75,
+                          col=cols.l[years==year])}}
+
+
+  if(no.plot==F){
+                points(y=y.e,x=x.e, type=&quot;p&quot;, cex=1.2,
+                        bg=cols.y, col=&quot;white&quot;, pch=23) 
+                points(y=newy.inter,x=unlist(newdat.inter), type=&quot;l&quot;, lwd=5,
+                       col=&quot;white&quot;)
+                legend(x=&quot;bottomright&quot;, pch=21, col=cols.l, pt.bg=cols.l, legend=years, 
+                        cex=0.8, bty=&quot;n&quot;) } 
+
+                 if(plot!=T){dev.off()}}
+
+
+
+
+
+
+
+CompileAORdata&lt;-function(names.spp, an.ID=NULL, an.IDCV, thresh){
+
+  input.folder&lt;-paste(&quot;~/Documents/PREDICTED/&quot;,an.ID,&quot;normalised monthly maps/&quot;, sep=&quot;&quot;)
+
+  av &lt;- read.csv(&quot;~/Documents/CPR/DATA/RAW DATA/Accepted values.csv&quot;)
+  tv&lt;-c(&quot;tem&quot;, &quot;centrot&quot;)
+  ec&lt;-c(&quot;chel&quot;, &quot;cfin&quot;, &quot;metrilu&quot;)
+
+  require(nnet)
+
+  dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;,an.ID,&quot;AORS/&quot;, 
+                        sep=&quot;&quot;), showWarnings = F)
+
+  dir.create(path=paste(&quot;~/Documents/PREDICTED/&quot;,an.ID,&quot;AORS/data&quot;, 
+                        sep=&quot;&quot;), showWarnings = F)
+  oc&lt;-NULL
+  AB.y&lt;-NULL
+  AB.av&lt;-NULL
+  AB.int&lt;-NULL
+  AB.win&lt;-NULL
+  N&lt;-NULL
+  yr&lt;-NULL
+  mm&lt;-NULL
+
+
+
+
+
+    #...................................              
+
+    n&lt;-dim(preds)[[1]]
+    oc&lt;-c(oc,sum(preds$pred.oc)/n)
+
+    ab&lt;-class.ind(preds$pred.ac[preds$pred.oc==1])
+    add&lt;-setdiff(as.character(1:12),dimnames(ab)[[2]])
+    ab&lt;-cbind(ab,matrix(0, nrow=length(preds$pred.ac[preds$pred.oc==1]), 
+                        ncol=length(add), dimnames=list(NULL,add)))
+    ab&lt;-ab[,order(as.numeric(colnames(ab)))]
+
+    if(spp%in%ec){ab&lt;-ab%*%av$ave}else{ab&lt;-ab%*%av$avt}
+
+
+
+
+    op.mm&lt;-optGammaFun(table(factor(preds$pred.ac[preds$pred.oc==1], levels = c(1:5))),
+                       log(bks.int[,1]))
+
+
+    AB.int&lt;-c(AB.int,exp(op.mm$mean + 0.5 * op.mm$var)*f)
+    AB.av&lt;-c(AB.av,mean(ab))
+    N&lt;-c(N,n)
+    mm&lt;-c(mm, as.numeric(strsplit(file.names[i], &quot;-&quot;)[[1]][2]))
+    yr&lt;-c(yr, as.numeric(strsplit(file.names[i], &quot;-&quot;)[[1]][1]))
+  }
+
+  AB.av[is.nan(AB.av)]&lt;-0
+</code></pre>
+
+<pre><code>Error: object &#39;AB.av&#39; not found
+</code></pre>
+
+<pre><code class="r">  AB.int[is.nan(AB.int)]&lt;-0
+</code></pre>
+
+<pre><code>Error: object &#39;AB.int&#39; not found
+</code></pre>
+
+<pre><code class="r">  AB.win[is.nan(AB.win)]&lt;-0
+</code></pre>
+
+<pre><code>Error: object &#39;AB.win&#39; not found
+</code></pre>
+
+<pre><code class="r">
+  AOR.table&lt;-cbind(oc,AB.av,AB.int,AB.win,N,mm,yr)
+</code></pre>
+
+<pre><code>Error: object &#39;oc&#39; not found
+</code></pre>
+
+<pre><code class="r">
+  save(,file=paste(&quot;~/Documents/PREDICTED/&quot;, an.ID,&quot;AORS/data/&quot;,
+                                thresh,spp,&quot; monthly AOR.Rdata&quot;,sep=&quot;&quot;))
+</code></pre>
+
+<pre><code>Error: argument is missing, with no default
+</code></pre>
+
+<pre><code class="r">
+</code></pre>
+
+</body>
+
+</html>
+

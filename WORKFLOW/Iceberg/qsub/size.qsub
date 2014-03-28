@@ -1,0 +1,2 @@
+##$ -l h_cpu=7:59:00
+#$ -t 1-10 #$ -q short.q#$ -m bea#$ -M anna.krystalli@sheffield.ac.ukcd /data/bop10ak/R-3.0.0/bin && ./R CMD BATCH --vanilla iceberg_size_test.R size_test_res.Rout

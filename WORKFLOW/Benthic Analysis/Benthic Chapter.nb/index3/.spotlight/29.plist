@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>keywords</key>
+	<string></string>
+	<key>txt</key>
+	<string>Implementation taxa2dist Varstep = T ends up with less that 100 for completely taxonomically distinct and zeros for species of same family. Not appropriate USE Varstep = F Use check = F but then need to include species as well otherwise distance for same genus will be 0 Calculating Delta+ In distance matrix use all species included in particular run of analysis To calculate node Delta+ Δf+ create matrix for all species and code species in node with 1 This will allow calculation of SD for node size </string>
+</dict>
+</plist>

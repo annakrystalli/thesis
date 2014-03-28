@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>keywords</key>
+	<string></string>
+	<key>txt</key>
+	<string>Trait Info Trait.refs &gt; trait.refs
+$Age_at_Maturity
+   Reference                        Type
+2          1                     maximum
+3          1 midpoint of BIOTIC category
+4          1                     unknown
+15         1                     minimum
+11        20                     average
+1         22 midpoint of BIOTIC category
+9         22                     unknown
+20        22                     maximum
+12        29 midpoint of BIOTIC category
+62        29                     unknown
+73        35                     unknown
+75        35                     maximum
+76        35 midpoint of BIOTIC category
+
+$Body_Size
+     Reference                        Type
+2            1                     minimum
+3            1                     maximum
+13           1 midpoint of BIOTIC category
+155          1                     average
+4            3                     maximum
+17           3                     unknown
+21           3                     minimum
+483          3                     average
+46           4                     unknown
+110          4                     minimum
+111          4                     maximum
+5            5                     maximum
+51           5                     minimum
+15           6                     minimum
+16           6                     maximum
+11           8                     minimum
+12           8                     maximum
+136         14                     maximum
+364         14                     unknown
+415         15                     maximum
+416         15                     unknown
+57          16                     unknown
+463         17                     unknown
+6           20                     unknown
+1           22 midpoint of BIOTIC category
+202         22                     minimum
+481         22                     maximum
+34          29                     maximum
+65          29 midpoint of BIOTIC category
+3349        35                     maximum
+3350        35 midpoint of BIOTIC category
+3410        35                     minimum
+
+$Developmental_Mechanism
+ [1] 1  2  5  6  8  9  14 22 29 35
+Levels: 1 14 2 22 29 35 5 6 8 9
+
+$Diet
+[1] 1  14 19 20 22 29 35
+Levels: 1 14 19 20 22 29 35
+
+$Fecundity
+   Reference    Type
+1          1 unknown
+29         1 minimum
+38         1 maximum
+2          8 minimum
+3          8 maximum
+8         22 maximum
+9         22 unknown
+24        22 minimum
+35        29 unknown
+45        29 minimum
+46        29 maximum
+71        35 unknown
+72        35 minimum
+73        35 average
+77        35 maximum
+
+$Feeding_Method
+ [1] 1  2  3  5  6  19 20 22 29 35
+Levels: 1 19 2 20 22 29 3 35 5 6
+
+$Habitat
+[1] 1  22 29 35
+Levels: 1 22 29 35
+
+$Larval_Duration
+    Reference    Type
+1           1 minimum
+2           1 maximum
+53          1 unknown
+9           2 unknown
+50         20 minimum
+51         20 maximum
+3          22 minimum
+4          22 maximum
+43         29 maximum
+115        29 minimum
+131        35 minimum
+132        35 maximum
+
+$Larval_Feeding_Strategy
+[1] 1  2  22 29 35
+Levels: 1 2 22 29 35
+
+$Lifespan
+    Reference                        Type
+11          1 midpoint of BIOTIC category
+38          1                     minimum
+44          1                     unknown
+48          1                     maximum
+1           2                     unknown
+2           5                     maximum
+3           5                     minimum
+12          6                     minimum
+13          6                     maximum
+9           8                     minimum
+10          8                     maximum
+5          20                     minimum
+40         20                     unknown
+103        20                     maximum
+15         22 midpoint of BIOTIC category
+86         22                     maximum
+300        22                     unknown
+21         29 midpoint of BIOTIC category
+306        35 midpoint of BIOTIC category
+307        35                     unknown
+309        35                     maximum
+
+$Migration
+[1] 1  6  22 29 35
+Levels: 1 22 29 35 6
+
+$MovementMethod
+[1] 1  5  6  14 20 22 29 35
+Levels: 1 14 20 22 29 35 5 6
+
+$Reproductive_Frequency
+[1] 1  11 22 29 35
+Levels: 1 11 22 29 35
+
+$Reproductive_Period
+[1] 1  22 29 35
+Levels: 1 22 29 35
+
+$Reproductive_Timing
+[1] 1  8  10 14 22 29 35
+Levels: 1 10 14 22 29 35 8
+
+$Size_of_Eggs
+   Reference    Type
+1          1 unknown
+5          1 minimum
+6          1 maximum
+55         3 minimum
+56         3 maximum
+2          8 minimum
+3          8 maximum
+4         22 unknown
+15        22 minimum
+16        22 maximum
+9         29 unknown
+24        29 maximum
+62        35 unknown
+
+$Sociability
+[1] 1  2  6  14 20 22 29 35
+Levels: 1 14 2 20 22 29 35 6 </string>
+</dict>
+</plist>
